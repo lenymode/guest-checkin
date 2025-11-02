@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('magic_links', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('guest_id')->constrained()->onDelete('cascade');
+            $table->uuid('token')->unique();
+            $table->timestamp('expires_at')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

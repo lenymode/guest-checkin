@@ -1,0 +1,27 @@
+services:
+  guest-checkin-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: guest-checkin-app
+    volumes:
+      - .:/var/www/html
+    networks:
+      - nex-academy_nex-network
+
+  guest-checkin-nginx:
+    image: nginx:latest
+    container_name: guest-checkin-nginx
+    ports:
+      - "9001:80"  # Host port 9001 → Container port 80 (Nginx)
+    volumes:
+      - .:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - guest-checkin-app
+    networks:
+      - nex-academy_nex-network
+
+networks:
+  nex-academy_nex-network:
+    external: true

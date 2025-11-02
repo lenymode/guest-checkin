@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('answers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('question_id')->constrained()->onDelete('cascade');
+            $table->string('answer_text');
+            $table->foreignId('page_id')->nullable()->constrained()->onDelete('set null');
+            $table->timestamps();
+        });
     }
 
     /**

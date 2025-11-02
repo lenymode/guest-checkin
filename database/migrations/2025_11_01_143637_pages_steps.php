@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('guests', function (Blueprint $table) {
+        Schema::create('page_steps', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->foreignId('property_id')->constrained()->onDelete('cascade');
-            $table->date('check_in_date');
-            $table->date('check_out_date');
-            $table->string('id_image_path')->nullable();
+            $table->foreignId('page_id')->constrained()->onDelete('cascade');
+            $table->integer('step_number');
+            $table->text('instruction');
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }
